@@ -1,0 +1,9 @@
+# DO NOT save ansible vault secret files!
+*.enc
+vault/
+
+# Do not share inventory
+inventory/
+
+# Do not share host.ini
+hosts.ini

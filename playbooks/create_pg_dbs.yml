@@ -1,0 +1,28 @@
+---
+- name: Setup Postgres DB and User 
+  hosts: postgres
+  become: true
+  vars:
+    project_1 : ProjectOne
+
+  tasks: 
+    - name: Create ProjectOne DB
+      community.postgresql.postgresql_db:
+        login_host: "{{ ansible_host }}"
+        login_user: "{{ postgres_user }}"
+        login_password: "{{ postgres_password }}"
+        name: "{{ project_1 }}"
+        state: present
+        encoding: UTF8
+        lc_collate: en_US.UTF-8
+        lc_ctype: en_US.UTF-8
+
+    - name: Create Test User
+      community.postgresql.postgresql_user:
+        login_host: "{{ ansible_host }}"
+        login_user: "{{ postgres_user }}"
+        login_password: "{{ postgres_password }}"
+        db:  "{{ project_1 }}"
+        state: present
+        name: "{{ pg_dev_user_one }}"
+        password: "{{ pg_dev_password_one }}"
