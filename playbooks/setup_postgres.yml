@@ -11,7 +11,7 @@
 
     - name: Create Postgres Container
       # enable no_log to prevent POSTGRES_PASSWORD from being exposed when the -v option is used
-      no_log: true
+      #no_log: true
       community.docker.docker_container:
         name: postgres
         image: postgres:17.0-alpine3.19
@@ -25,10 +25,5 @@
         env:
           POSTGRES_USER: "{{ postgres_user }}"
           POSTGRES_PASSWORD: "{{ postgres_password }}"
-
-    - name: Create Scratch DB
-      community.postgresql.postgresql_db: 
-        name: acme
-        comment: My test DB
      
 

@@ -12,11 +12,10 @@
         state: present
         validate: '/usr/sbin/visudo -cf %s'
 
-    - name: Add "{{ remote_user }}" group to sudoers
+    - name: Add group to sudoers
       ansible.builtin.lineinfile:
         path: /etc/sudoers
         line: '%{{ remote_user }} ALL=(ALL:ALL) NOPASSWD:ALL'
         state: present
         validate: '/usr/sbin/visudo -cf %s'
-
 
