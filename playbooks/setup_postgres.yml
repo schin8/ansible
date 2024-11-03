@@ -10,8 +10,8 @@
         state: present
 
     - name: Create Postgres Container
-      # enable no_log to prevent POSTGRES_PASSWORD from being exposed when the -v option is used
-      #no_log: true
+      # enable (true) no_log to prevent POSTGRES_PASSWORD from being exposed when the -v option is used
+      no_log: false
       community.docker.docker_container:
         name: postgres
         image: postgres:17.0-alpine3.19
@@ -25,5 +25,3 @@
         env:
           POSTGRES_USER: "{{ postgres_user }}"
           POSTGRES_PASSWORD: "{{ postgres_password }}"
-     
-

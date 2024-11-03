@@ -1,0 +1,33 @@
+---
+- name: Setup Mongodb container
+  hosts: mongodb
+  become: true
+
+  tasks:
+    - name: Create docker volume for data if it is not found
+      community.docker.docker_volume:
+        name: mongo_data
+        state: present
+
+    - name: Create docker volume for config if it is not found
+      community.docker.docker_volume:
+        name: mongo_configdb
+        state: present
+
+    - name: Create mongodb Container
+      # enable (true) no_log to prevent POSTGRES_PASSWORD from being exposed when the -v option is used
+      no_log: false
+      community.docker.docker_container:
+        name: mongodb
+        image: mongo:7.0.12
+        state: started
+        recreate: true
+        restart: true
+        ports:
+          - "27017:27017"
+        volumes:
+          - mongo_data:/data/db
+          - mongo_configdb:/data/configdb
+        env:
+          MONGO_INITDB_ROOT_USERNAME: "{{ mongo_username }}"
+          MONGO_INITDB_ROOT_PASSWORD: "{{ mongo_password }}"
