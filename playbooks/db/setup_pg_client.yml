@@ -1,5 +1,5 @@
 ---
-- name: Baseline configuration
+- name: Add PostgresSQL Client
   hosts: homelab
   become: true
 

@@ -1,0 +1,23 @@
+---
+- name: Configure lxc
+  hosts: lxc
+  vars:
+    ansible_user: "{{ default_admin }}"
+
+  tasks:
+    - name: Create user and home directory for user "{{ remote_lab_user }}"
+      # Create the remote user who will configure/access the container.  Note: password must be hashed
+      ansible.builtin.user:
+        name: "{{ remote_lab_user }}"
+        password: "{{ remote_lab_password | password_hash('sha512', 'salty') }}"
+        comment: ansible user
+        shell: /bin/bash
+        create_home: true
+
+    - name: Add to sudoers the group "{{ remote_lab_user }}"
+      # We want the remote user to be able to use sudo without needing to provide the password
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        line: '%{{ remote_lab_user }} ALL=(ALL:ALL) NOPASSWD:ALL'
+        state: present
+        validate: '/usr/sbin/visudo -cf %s'

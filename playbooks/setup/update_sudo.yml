@@ -1,4 +1,5 @@
 ---
+# Deprecate?
 - name: Ensure Portainer group can use sudo without a password
   hosts: homelab
   become: true

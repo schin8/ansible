@@ -25,3 +25,25 @@
         env:
           POSTGRES_USER: "{{ postgres_user }}"
           POSTGRES_PASSWORD: "{{ postgres_password }}"
+
+    - name: Ensure pip is installed
+      ansible.builtin.apt:
+        name: python3-pip
+        state: present
+      when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+    - name: Install psycopg2-binary
+      ansible.builtin.pip:
+        name: psycopg2-binary
+
+    - name: Update apt repository cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install PostgreSQL Client
+      ansible.builtin.apt:
+        name: postgresql-client
+        state: present
+        force_apt_get: true
+        install_recommends: false
+        update_cache: true
