@@ -1,6 +1,6 @@
 ---
 - name: Setup Mongodb container
-  hosts: mongodb
+  hosts: lxc
   become: true
 
   tasks:
