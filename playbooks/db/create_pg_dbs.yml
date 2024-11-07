@@ -1,6 +1,6 @@
 ---
 - name: Setup Postgres DB and User
-  hosts: postgres
+  hosts: databases
   become: true
   vars:
     project_1: ProjectOne
