@@ -23,7 +23,7 @@ graph LR
     A[setup_postgres.yml] -->|check| B[ansible.cfg]
     B -->|Points to| C[inventory/]
     C -->|contains| C1[lower.yml]
-    A -->|decrypts\nvars using| D[vault/]
+    A -->|decrypts vars using| D[vault/]
     D  -->|contains| D1[encrypt.enc]
 
 ```
