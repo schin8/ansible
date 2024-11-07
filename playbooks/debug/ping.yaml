@@ -1,0 +1,7 @@
+---
+- name: Setup Postgres DB and User
+  hosts: homelab
+
+  tasks:
+    - name: Ping hosts
+      ansible.builtin.ping:

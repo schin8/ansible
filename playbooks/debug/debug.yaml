@@ -1,0 +1,16 @@
+---
+- name: Setup Postgres DB and User Pi
+  hosts: pi
+
+  tasks:
+    - name: Debug test
+      ansible.builtin.debug:
+        msg: "I AM Raspberry Pi"
+
+- name: Setup Postgres DB and User other
+  hosts: lxc, vm
+
+  tasks:
+    - name: Debug test
+      ansible.builtin.debug:
+        msg: "Not Raspberry Pi"
